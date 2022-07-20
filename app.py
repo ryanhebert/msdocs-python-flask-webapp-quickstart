@@ -10,6 +10,16 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+   
+   #keyVaultName = os.environ["KEY_VAULT_NAME"]
+   #KVUri = f"https://{keyVaultName}.vault.azure.net"
+   KVUri = f"https://duo-enroll-keys.vault.azure.net"
+   credential = DefaultAzureCredential()
+   client = SecretClient(vault_url=KVUri, credential=credential)
+   duo_auth_ikey = client.get_secret("duo-auth-ikey")
+   duo_auth_skey = client.get_secret("duo-auth-skey")
+   duo_auth_api = client.get_secret("duo-auth-api")
+   
    headers = request.headers
    authorization = request.authorization
    data = request.data
@@ -28,7 +38,7 @@ def index():
    access_decoded = jwt.decode(access_token, algorithms=[access_alg], options={"verify_signature": False})
    
    print('Request for index page received')
-   return render_template('index.html', headers = email, authorization = id_decoded, data = id_token_email)
+   return render_template('index.html', headers = duo_auth_api, authorization = id_decoded, data = id_token_email)
 
 @app.route('/favicon.ico')
 def favicon():
