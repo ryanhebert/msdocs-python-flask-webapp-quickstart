@@ -1,4 +1,4 @@
 Flask==2.0.2
 pyjwt
 azure-identity
-zure-keyvault-secrets
+azure-keyvault-secrets
