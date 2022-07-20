@@ -16,9 +16,9 @@ def index():
    KVUri = f"https://duo-enroll-keys.vault.azure.net"
    credential = DefaultAzureCredential()
    client = SecretClient(vault_url=KVUri, credential=credential)
-   #duo_auth_ikey = client.get_secret("duo-auth-ikey")
-   #duo_auth_skey = client.get_secret("duo-auth-skey")
-   #duo_auth_api = client.get_secret("duo-auth-api")
+   duo_auth_ikey = client.get_secret("duo-auth-ikey")
+   duo_auth_skey = client.get_secret("duo-auth-skey")
+   duo_auth_api = client.get_secret("duo-auth-api")
    
    headers = request.headers
    authorization = request.authorization
