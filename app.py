@@ -11,12 +11,16 @@ def index():
    data = request.data
    email = request.headers['X-Ms-Client-Principal-Name']
    id_token = request.headers['X-Ms-Token-Aad-Id-Token']
+   access_token = request.headers['X-Ms-Token-Aad-Access-Token']
    
-   alg = jwt.get_unverified_header(id_token)['alg']
-   decoded = jwt.decode(id_token, algorithms=[alg], options={"verify_signature": False})
+   id_alg = jwt.get_unverified_header(id_token)['alg']
+   id_decoded = jwt.decode(id_token, algorithms=[id_alg], options={"verify_signature": False})
+   
+   access_alg = jwt.get_unverified_header(access_token)['alg']
+   access_decoded = jwt.decode(access_token, algorithms=[acess_alg], options={"verify_signature": False})
    
    print('Request for index page received')
-   return render_template('index.html', headers = email, authorization = id_token, data = decoded)
+   return render_template('index.html', headers = email, authorization = id_decoded, data = access_decoded)
 
 @app.route('/favicon.ico')
 def favicon():
