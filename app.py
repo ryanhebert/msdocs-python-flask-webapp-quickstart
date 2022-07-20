@@ -12,8 +12,8 @@ def index():
    email = request.headers['X-Ms-Client-Principal-Name']
    id_token = request.headers['X-Ms-Token-Aad-Id-Token']
    
-   alg = jwt.get_unverified_header(accessToken['id_token'])['alg']
-   decoded = jwt.decode(accessToken['id_token'], algorithms=[alg], options={"verify_signature": False})
+   alg = jwt.get_unverified_header(id_token)['alg']
+   decoded = jwt.decode(id_token, algorithms=[alg], options={"verify_signature": False})
    
    print('Request for index page received')
    return render_template('index.html', headers = email, authorization = id_token, data = decoded)
