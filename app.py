@@ -12,8 +12,10 @@ def index():
    email = request.headers['X-Ms-Client-Principal-Name']
    id_token = request.headers['X-Ms-Token-Aad-Id-Token']
    
+   test = jwt.get_unverified_header(id_token)
+   
    print('Request for index page received')
-   return render_template('index.html', headers = email, authorization = id_token, data = data)
+   return render_template('index.html', headers = email, authorization = id_token, data = test)
 
 @app.route('/favicon.ico')
 def favicon():
