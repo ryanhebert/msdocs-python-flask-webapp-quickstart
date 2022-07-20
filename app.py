@@ -9,9 +9,11 @@ def index():
    headers = request.headers
    authorization = request.authorization
    data = request.data
+   email = request.headers['X-Ms-Client-Principal-Name']
+   id_token = request.headers['X-Ms-Token-Aad-Id-Token']
    
    print('Request for index page received')
-   return render_template('index.html', headers = headers, authorization = authorization, data = data)
+   return render_template('index.html', headers = email, authorization = id_token, data = data)
 
 @app.route('/favicon.ico')
 def favicon():
