@@ -4,9 +4,12 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-   args = request.headers
+   headers = request.headers
+   authorization = request.authorization
+   data = request.data
+   
    print('Request for index page received')
-   return render_template('index.html', args = args)
+   return render_template('index.html', headers = headers, authorization = authorization, data = data)
 
 @app.route('/favicon.ico')
 def favicon():
