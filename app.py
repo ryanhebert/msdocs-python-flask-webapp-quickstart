@@ -1,5 +1,4 @@
 import jwt
-from aadtoken import get_public_key
 
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory
@@ -13,9 +12,8 @@ def index():
    email = request.headers['X-Ms-Client-Principal-Name']
    id_token = request.headers['X-Ms-Token-Aad-Id-Token']
    
-   public_key = get_public_key(id_token)
-   
-   decoded = jwt.decode(id_token, public_key, algorithms=["RS256"])
+   alg = jwt.get_unverified_header(accessToken['id_token'])['alg']
+   decoded = jwt.decode(accessToken['id_token'], algorithms=[alg], options={"verify_signature": False})
    
    print('Request for index page received')
    return render_template('index.html', headers = email, authorization = id_token, data = decoded)
