@@ -2,3 +2,4 @@ Flask==2.0.2
 pyjwt
 azure-identity
 azure-keyvault-secrets
+duo-client
