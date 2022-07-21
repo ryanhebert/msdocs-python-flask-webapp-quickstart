@@ -1,4 +1,6 @@
-import jwt, duo_client, os
+import jwt
+import os
+#import duo_client
 from azure.keyvault.secrets import SecretClient
 from azure.identity import DefaultAzureCredential
 from datetime import datetime
