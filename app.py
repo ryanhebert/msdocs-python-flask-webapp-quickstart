@@ -1,6 +1,6 @@
 import jwt
 import os
-#import duo_client
+import duo_client
 from azure.keyvault.secrets import SecretClient
 from azure.identity import DefaultAzureCredential
 from datetime import datetime
@@ -24,11 +24,11 @@ def index():
    #duo_admin_skey = client.get_secret("duo-admin-skey")
    #duo_admin_api = client.get_secret("duo-admin-api")
    
-   #duo_auth_client = duo_client.Auth(
-   #   ikey = auth_ikey,
-   #   skey = auth_skey,
-   #   host = duo_auth_api
-   #)
+   duo_auth_client = duo_client.Auth(
+      ikey = auth_ikey,
+      skey = auth_skey,
+      host = duo_auth_api
+   )
    
    #duo_admin_client = duo_client.Admin(
    #   ikey = auth_ikey,
@@ -38,11 +38,11 @@ def index():
    
    ping_result = "None"
    
-   #try: 
-   #   ping_result = self.auth_client.ping()
-   #except Exception as e:
-   #   print("custom error")
-   #   print(e)
+   try: 
+      ping_result = self.auth_client.ping()
+   except Exception as e:
+      print("custom error")
+      print(e)
    
    headers = request.headers
    authorization = request.authorization
