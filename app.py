@@ -13,7 +13,7 @@ def index():
    
    #keyVaultName = os.environ["KEY_VAULT_NAME"]
    #KVUri = f"https://{keyVaultName}.vault.azure.net"
-   KVUri = f"https://duo-enroll-keys.vault.azure.net"
+   KVUri = f"https://duo-key-vault.vault.azure.net"
    credential = DefaultAzureCredential()
    client = SecretClient(vault_url=KVUri, credential=credential)
    duo_auth_ikey = client.get_secret("duo-auth-ikey")
