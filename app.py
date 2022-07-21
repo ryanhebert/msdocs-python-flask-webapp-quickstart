@@ -18,9 +18,9 @@ def index():
    duo_auth_skey = client.get_secret("duo-auth-skey")
    duo_auth_api = client.get_secret("duo-auth-api")
    
-   duo_admin_ikey = client.get_secret("duo-admin-ikey")
-   duo_admin_skey = client.get_secret("duo-admin-skey")
-   duo_admin_api = client.get_secret("duo-admin-api")
+   #duo_admin_ikey = client.get_secret("duo-admin-ikey")
+   #duo_admin_skey = client.get_secret("duo-admin-skey")
+   #duo_admin_api = client.get_secret("duo-admin-api")
    
    duo_auth_client = duo_client.Auth(
       ikey = auth_ikey,
@@ -28,14 +28,16 @@ def index():
       host = duo_auth_api
    )
    
-   duo_admin_client = duo_client.Admin(
-      ikey = auth_ikey,
-      skey = auth_skey,
-      host = duo_auth_api
-   )
+   #duo_admin_client = duo_client.Admin(
+   #   ikey = auth_ikey,
+   #   skey = auth_skey,
+   #   host = duo_auth_api
+   #)
+   
+   ping_result = "None"
    
    try: 
-      ping_result = self.auth_client.logo()
+      ping_result = self.auth_client.ping()
    except Exception as e:
       print("custom error")
       print(e)
