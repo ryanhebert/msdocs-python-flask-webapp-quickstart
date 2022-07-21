@@ -58,7 +58,7 @@ def index():
    access_decoded = jwt.decode(access_token, algorithms=[access_alg], options={"verify_signature": False})
    
    print('Request for index page received')
-   return render_template('index.html', headers = duo_auth_api, authorization = id_decoded, data = id_token_email)
+   return render_template('index.html', headers = ping_result, authorization = id_decoded, data = id_token_email)
 
 @app.route('/favicon.ico')
 def favicon():
