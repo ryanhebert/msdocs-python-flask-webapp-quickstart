@@ -13,22 +13,28 @@ def index():
    
    #keyVaultName = os.environ["KEY_VAULT_NAME"]
    #KVUri = f"https://{keyVaultName}.vault.azure.net"
-   KVUri = f"https://duo-key-vault.vault.azure.net"
-   credential = DefaultAzureCredential()
-   client = SecretClient(vault_url=KVUri, credential=credential)
-   duo_auth_ikey = client.get_secret("duo-auth-ikey").value
-   duo_auth_skey = client.get_secret("duo-auth-skey").value
-   duo_auth_api = client.get_secret("duo-auth-api").value
    
-   #duo_admin_ikey = client.get_secret("duo-admin-ikey")
-   #duo_admin_skey = client.get_secret("duo-admin-skey")
-   #duo_admin_api = client.get_secret("duo-admin-api")
-   
-   duo_auth_client = duo_client.Auth(
-      ikey = duo_auth_ikey,
-      skey = duo_auth_skey,
-      host = duo_auth_api
-   )
+   try:
+      KVUri = f"https://duo-key-vault.vault.azure.net"
+      credential = DefaultAzureCredential()
+      client = SecretClient(vault_url=KVUri, credential=credential)
+      duo_auth_ikey = client.get_secret("duo-auth-ikey").value
+      duo_auth_skey = client.get_secret("duo-auth-skey").value
+      duo_auth_api = client.get_secret("duo-auth-api").value
+
+      #duo_admin_ikey = client.get_secret("duo-admin-ikey")
+      #duo_admin_skey = client.get_secret("duo-admin-skey")
+      #duo_admin_api = client.get_secret("duo-admin-api")
+
+      duo_auth_client = duo_client.Auth(
+         ikey = duo_auth_ikey,
+         skey = duo_auth_skey,
+         host = duo_auth_api
+      )
+      
+   except Exception as e:
+      print("custom error")
+      print(e)
    
    #duo_admin_client = duo_client.Admin(
    #   ikey = auth_ikey,
