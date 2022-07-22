@@ -9,6 +9,8 @@ app = Flask(__name__)
 @app.route('/')
 def index():
    
+   #test
+   
    #keyVaultName = os.environ["KEY_VAULT_NAME"]
    #KVUri = f"https://{keyVaultName}.vault.azure.net"
    KVUri = f"https://duo-key-vault.vault.azure.net"
