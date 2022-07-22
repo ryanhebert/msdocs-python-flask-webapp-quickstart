@@ -44,25 +44,28 @@ def index():
       print("custom error")
       print(e)
    
+   
    headers = request.headers
    authorization = request.authorization
    data = request.data
-   email = request.headers['X-Ms-Client-Principal-Name']
-   
-   id_token = request.headers['X-Ms-Token-Aad-Id-Token']
-   
-   id_alg = jwt.get_unverified_header(id_token)['alg']
-   id_decoded = jwt.decode(id_token, algorithms=[id_alg], options={"verify_signature": False})
-   
-   id_token_email = id_decoded['email']
-   
-   access_token = request.headers['X-Ms-Token-Aad-Access-Token']
-   
-   access_alg = jwt.get_unverified_header(access_token)['alg']
-   access_decoded = jwt.decode(access_token, algorithms=[access_alg], options={"verify_signature": False})
+      
+      
+   try:
+      email = request.headers['X-Ms-Client-Principal-Name']
+      id_token = request.headers['X-Ms-Token-Aad-Id-Token']
+      id_alg = jwt.get_unverified_header(id_token)['alg']
+      id_decoded = jwt.decode(id_token, algorithms=[id_alg], options={"verify_signature": False})
+      id_token_email = id_decoded['email']
+      access_token = request.headers['X-Ms-Token-Aad-Access-Token']
+      access_alg = jwt.get_unverified_header(access_token)['alg']
+      access_decoded = jwt.decode(access_token, algorithms=[access_alg], options={"verify_signature": False})
+      
+   except Exception as e:
+      print("custom error")
+      print(e)
    
    print('Request for index page received')
-   return render_template('index.html', headers = ping_result, authorization = id_decoded, data = id_token_email)
+   return render_template('index.html', headers = headers, authorization = authorization, data = data)
 
 @app.route('/favicon.ico')
 def favicon():
